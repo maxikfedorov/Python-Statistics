@@ -1,18 +1,19 @@
-import numpy as np
+import pandas as pd
 
-observed = np.array([97, 98, 109, 95, 97, 104])
+data = pd.DataFrame({
+    'Женат': [89, 17, 11, 43, 22, 1],
+    'Гражданский брак': [80, 22, 20, 35, 6, 4],
+    'Не состоит в отношениях': [35, 44, 35, 6, 8, 22]
+})
+data.index = ['Полный рабочий день', 'Частичная занятость', 'Временно не работает', 'На домохозяйстве', 'На пенсии', 'Учёба']
 
-n = observed.sum()
-k = len(observed)
-expected = np.array([n / k] * k)
+from scipy.stats import chi2_contingency
 
-from scipy.stats import chisquare
+stat, p, dof, expected = chi2_contingency(data)
+print("Chi-squared test:")
+print("Statistic =", stat, "p-value =", p)
 
-stat, p = chisquare(observed, expected)
-print("Хи-квадрат тест:") 
-print("Статистика =", stat, "p-значение =", p)
-
-if p < 0.05:
-    print("Нулевая гипотеза отвергается, распределение не является равномерным.")
-else:
-    print("Нулевая гипотеза не отвергается, распределение равномерное.")
+if p < 0.05: 
+    print("Нулевая гипотеза отвергается, переменные зависимы.\nСемейное положение влияет на занятость") 
+else: 
+    print("Нулевая гипотеза не отвергается, переменные независимы.")
