@@ -1,0 +1,2 @@
+### Задание на языке Python на тему "Основы статистики" по дисциплине "Технологии и инструментарий анализа больших данных"
+### Python assignment on the topic "Fundamentals of statistics" on the discipline "Technologies and tools for analyzing big data"
